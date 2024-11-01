@@ -7,7 +7,7 @@ const getItemById = async (req, res) => {
     const item = await itemService.getItemById(itemId);
     if (!item) {
       return res
-        .status(404)
+        .status(200)
         .json({ success: false, message: "Item not found" });
     }
     return res.status(200).json({
@@ -129,7 +129,7 @@ const searchItems = async (req, res) => {
 
     if (!items) {
       return res
-        .status(404)
+        .status(200)
         .json({ success: false, message: "No items found" });
     }
 

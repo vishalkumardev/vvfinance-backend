@@ -17,7 +17,7 @@ const sequelize = new Sequelize({
 //   password: "",
 //   host: "localhost",
 //   dialect: "mysql",
-//   dialectModule: require("mysql2"),
+//  a dialectModule: require("mysql2"),
 //   port: "3306",
 //   benchmark: true,
 // });
