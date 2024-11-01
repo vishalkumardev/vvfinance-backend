@@ -61,7 +61,6 @@ const createItem = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      data: item,
       message: "Emi Created Successfully",
     });
   } catch (error) {

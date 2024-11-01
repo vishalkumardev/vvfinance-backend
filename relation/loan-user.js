@@ -4,10 +4,10 @@ const LoansUser = require("./model/user-loan");
 
 Loan.belongsToMany(User, {
   through: LoansUser,
-  as: "loans",
+  as: "users",
 });
 
 User.belongsToMany(Loan, {
   through: LoansUser,
-  as: "users",
+  as: "loans",
 });

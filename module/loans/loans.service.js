@@ -111,7 +111,7 @@ const getItemById = async (itemId) => {
         {
           model: User,
           attributes: ["name", "phone"],
-          as: "loans",
+          as: "users",
           through: {
             model: LoansUser,
             attributes: ["count"],
