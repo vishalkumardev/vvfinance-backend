@@ -102,11 +102,11 @@ const getAllItems = async (data) => {
   }
 };
 
-const getItemById = async (itemId) => {
+const getItemById = async (loanId) => {
   try {
     const item = await Item.findOne({
       where: {
-        agreementid: itemId,
+        agreementid: loanId,
       },
       include: [
         {
@@ -126,13 +126,13 @@ const getItemById = async (itemId) => {
   }
 };
 
-const updateItem = async (itemId, data) => {
+const updateItem = async (loanId, data) => {
   try {
     const [updated] = await Item.update(data, {
-      where: { agreementid: itemId },
+      where: { agreementid: loanId },
     });
     if (updated) {
-      const updatedItem = await Item.findByPk(itemId);
+      const updatedItem = await Item.findByPk(loanId);
       return updatedItem;
     }
     return null;
@@ -141,10 +141,10 @@ const updateItem = async (itemId, data) => {
   }
 };
 
-const deleteItem = async (itemId) => {
+const deleteItem = async (loanId) => {
   try {
     const deleted = await Item.destroy({
-      where: { agreementid: itemId },
+      where: { agreementid: loanId },
     });
     return deleted;
   } catch (error) {
@@ -152,13 +152,20 @@ const deleteItem = async (itemId) => {
   }
 };
 
-const searchItems = async (itemId, user) => {
+const searchItems = async (data, user) => {
+  const loanId = data?.loanId;
+
+  const location = {
+    type: "Point",
+    coordinates: [data?.longitude, data?.latitude],
+  };
+
   try {
     const item = await Item.findOne({
       where: {
         [Op.or]: {
-          agreementid: itemId,
-          registration_no: itemId,
+          agreementid: loanId,
+          registration_no: loanId,
         },
       },
     });
@@ -180,6 +187,7 @@ const searchItems = async (itemId, user) => {
         await LoansUser.create({
           userUserId: user.userId,
           LoanLoanId: data?.loanId,
+          location: location,
         });
       }
     }

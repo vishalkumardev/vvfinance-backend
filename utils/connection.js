@@ -23,7 +23,7 @@ const sequelize = new Sequelize({
 });
 
 try {
-  sequelize.sync({ logging: false }).then(() => {
+  sequelize.sync({ logging: false, alter: true }).then(() => {
     console.log("Connection has been established successfully.");
   });
 } catch (error) {

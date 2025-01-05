@@ -19,6 +19,6 @@ router.patch("/:id", verifyToken, itemController.updateItem);
 router.delete("/:id", verifyToken, itemController.deleteItem);
 
 //search for the loans
-router.get("/search/:id", verifyToken, itemController.searchItems);
+router.post("/search", verifyToken, itemController.searchItems);
 
 module.exports = router;

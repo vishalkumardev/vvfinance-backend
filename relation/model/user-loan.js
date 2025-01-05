@@ -6,6 +6,10 @@ const LoansUser = sequelize.define("loansUser", {
     type: DataTypes.INTEGER,
     defaultValue: 1,
   },
+  location: {
+    type: DataTypes.GEOMETRY("POINT"),
+    allowNull: true,
+  },
 });
 
 module.exports = LoansUser;

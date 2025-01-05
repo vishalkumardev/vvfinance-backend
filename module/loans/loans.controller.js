@@ -121,7 +121,7 @@ const deleteItem = async (req, res) => {
 };
 
 const searchItems = async (req, res) => {
-  const agreementId = req.params.id;
+  const agreementId = req.body;
   const user = req.user;
 
   try {
