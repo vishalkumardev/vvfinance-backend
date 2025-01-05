@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const LoansUser = require("../../relation/model/user-loan");
 const { getPaginatedData } = require("../../utils/pagination");
 const User = require("../user/user.model");
@@ -155,7 +156,10 @@ const searchItems = async (itemId, user) => {
   try {
     const item = await Item.findOne({
       where: {
-        agreementid: itemId,
+        [Op.or]: {
+          agreementid: itemId,
+          registration_no: itemId,
+        },
       },
     });
 

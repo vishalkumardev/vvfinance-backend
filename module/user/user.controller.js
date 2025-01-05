@@ -218,66 +218,6 @@ const getAll = async (req, res) => {
     });
   }
 };
-const getAllFinancer = async (req, res) => {
-  const data = {
-    ...req.query,
-    ...req.data,
-    filter: {
-      role: "financer",
-    },
-  };
-  try {
-    const user = await getAllUser(data);
-
-    if (user) {
-      return res.status(200).json({
-        success: true,
-        data: user,
-        message: "Users retrieved Successfully",
-      });
-    }
-    return res.status(200).json({
-      success: false,
-      message: "Users Not Found",
-    });
-  } catch (error) {
-    console.error("Error in getAll:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-};
-const getAllShop = async (req, res) => {
-  const data = {
-    ...req.query,
-    ...req.data,
-    filter: {
-      role: "shopkeeper",
-    },
-  };
-  try {
-    const user = await getAllUser(data);
-
-    if (user) {
-      return res.status(200).json({
-        success: true,
-        data: user,
-        message: "Users retrieved Successfully",
-      });
-    }
-    return res.status(200).json({
-      success: false,
-      message: "Users Not Found",
-    });
-  } catch (error) {
-    console.error("Error in getAll:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-};
 
 const dashboard = async (req, res) => {
   const data = req.body;
@@ -316,6 +256,4 @@ module.exports = {
   resetLink,
   changePassword,
   dashboard,
-  getAllFinancer,
-  getAllShop,
 };
