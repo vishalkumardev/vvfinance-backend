@@ -39,7 +39,7 @@ const getAllUser = async (data) => {
       filter,
       "",
       [],
-      ["name", "address", "phone", "userId", "email"],
+      ["name", "address", "phone", "userId", "email", "active"],
       true,
       "createdAt",
       "DESC"
@@ -77,10 +77,29 @@ const fetchDashboard = async (data, user) => {
   }
 };
 
+const toggleUserStatus = async (userId) => {
+  try {
+    const userData = await user.findOne({
+      where: {
+        userId: userId,
+      },
+    });
+    const status = userData.active;
+    const update = await user.update(
+      { active: !status },
+      { where: { userId: userId } }
+    );
+    return update;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   saveUser,
   getUser,
   getAllUser,
   updatePassword,
   fetchDashboard,
+  toggleUserStatus,
 };

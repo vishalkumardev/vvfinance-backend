@@ -9,6 +9,7 @@ const {
   getAll,
   changePassword,
   dashboard,
+  updateAccountStatus,
 } = require("../module/user/user.controller");
 const { verifyToken } = require("../utils/generateToken");
 
@@ -19,5 +20,6 @@ router.get("/profile", verifyToken, get);
 router.post("/get", verifyToken, getAll);
 router.get("/reset/:_id", changePassword);
 router.post("/dashboard", verifyToken, dashboard);
+router.patch("/toggle", verifyToken, updateAccountStatus);
 
 module.exports = router;

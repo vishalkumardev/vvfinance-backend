@@ -4,6 +4,7 @@ const {
   getAllUser,
   updatePassword,
   fetchDashboard,
+  toggleUserStatus,
 } = require("./user.service");
 const { comparePassword } = require("../../utils/Hashing");
 const { generateToken } = require("../../utils/generateToken");
@@ -96,6 +97,13 @@ const login = async (req, res) => {
     }
 
     const user = await getUser(data.email);
+
+    if (!user?.dataValues?.active) {
+      return res.status(200).json({
+        success: false,
+        message: "You are not authorized to Use !",
+      });
+    }
 
     if (user && comparePassword(data.password, user.password)) {
       const token = generateToken(user);
@@ -248,6 +256,28 @@ const dashboard = async (req, res) => {
   }
 };
 
+const updateAccountStatus = async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const updated = await toggleUserStatus(userId);
+    if (updated) {
+      return res.status(200).json({
+        success: true,
+        message: "Account Status Updated Successfully",
+      });
+    }
+    return res.status(200).json({
+      success: false,
+      message: "Account Status not Updated",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
 module.exports = {
   add,
   login,
@@ -256,4 +286,5 @@ module.exports = {
   resetLink,
   changePassword,
   dashboard,
+  updateAccountStatus,
 };
