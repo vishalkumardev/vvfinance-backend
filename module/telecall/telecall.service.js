@@ -3,6 +3,7 @@ const LoansUser = require("../../relation/model/user-loan");
 const { getPaginatedData } = require("../../utils/pagination");
 const Item = require("./telecall.model");
 const xlsx = require("xlsx");
+const sequelize = require("../../utils/connection");
 
 const addItem = async (files) => {
   try {
@@ -61,6 +62,8 @@ const getAllItems = async (data) => {
   const pageSize = data.size ?? 15;
   const page = data.page ?? 1;
   const filter = data.filter ?? {};
+
+  console.log(data);
   try {
     const items = await getPaginatedData(
       pageSize,
@@ -167,6 +170,13 @@ const searchItems = async (itemId, user) => {
   }
 };
 
+const getAllDistrict = async () => {
+  const [data] = await sequelize.query(
+    `SELECT DISTINCT district FROM tellecalls;`
+  );
+  return data;
+};
+
 module.exports = {
   addItem,
   getAllItems,
@@ -174,4 +184,5 @@ module.exports = {
   updateItem,
   deleteItem,
   searchItems,
+  getAllDistrict,
 };

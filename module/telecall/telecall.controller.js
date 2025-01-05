@@ -145,6 +145,31 @@ const searchItems = async (req, res) => {
   }
 };
 
+const getAllDistrict = async (req, res) => {
+  const agreementId = req.params.id;
+  const user = req.user;
+
+  try {
+    const items = await itemService.getAllDistrict();
+
+    if (!items) {
+      return res.status(200).json({ success: false, message: "No Loan found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: { district: items },
+      message: "Loan found successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message ?? "Internal server error",
+      data: {},
+    });
+  }
+};
+
 module.exports = {
   getItemById,
   getAllItems,
@@ -152,4 +177,5 @@ module.exports = {
   updateItem,
   deleteItem,
   searchItems,
+  getAllDistrict,
 };

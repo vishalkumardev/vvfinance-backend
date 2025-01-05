@@ -6,6 +6,8 @@ const { verifyToken } = require("../utils/generateToken");
 // GET all items
 router.post("/get", verifyToken, itemController.getAllItems);
 
+router.get("/district", verifyToken, itemController.getAllDistrict);
+
 // GET item by ID
 router.get("/:id", verifyToken, itemController.getItemById);
 
